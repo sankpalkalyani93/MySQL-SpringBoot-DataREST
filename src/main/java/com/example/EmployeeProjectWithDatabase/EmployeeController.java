@@ -1,5 +1,8 @@
 package com.example.EmployeeProjectWithDatabase;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +30,18 @@ public class EmployeeController {
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
 		Employee createdEmployee = empService.createEmployee(employee);
 		return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<Employee>> getAllEmployees(){
+		List<Employee> employees = empService.getAllEmployees();
+		return new ResponseEntity<>(employees, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable Integer id){
+		Optional<Employee> employee = empService.getEmployeeById(id);
+		return employee.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+				.orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 }
