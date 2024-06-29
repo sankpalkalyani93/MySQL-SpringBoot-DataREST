@@ -39,4 +39,8 @@ public class EmployeeService {
 		}
 		return null;
 	}
+	
+	public void deleteEmployeeById(Integer id) {
+		empRepository.deleteById(id);
+	}
 }

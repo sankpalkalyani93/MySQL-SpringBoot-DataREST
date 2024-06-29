@@ -53,4 +53,10 @@ public class EmployeeController {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteEmployeeById(@PathVariable Integer id){
+		empService.deleteEmployeeById(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 }
