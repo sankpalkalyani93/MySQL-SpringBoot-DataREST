@@ -27,4 +27,16 @@ public class EmployeeService {
 	public Optional<Employee> getEmployeeById(Integer id) {
 		return empRepository.findById(id);
 	}
+	
+	public Employee updateEmployee(Integer id, Employee employeeDetails) {
+		Optional<Employee> employee = empRepository.findById(id);
+		if(employee.isPresent()) {
+			Employee updatedEmployee = employee.get();
+			updatedEmployee.setEmpname(employeeDetails.getEmpname());
+			updatedEmployee.setEmpsalary(employeeDetails.getEmpsalary());
+			updatedEmployee.setEmpcompmany(employeeDetails.getEmpcompany());
+			return empRepository.save(updatedEmployee);
+		}
+		return null;
+	}
 }
